@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from app_core import Editorial
+from app_core.models import Editorial
 
 class Author(Editorial):
     

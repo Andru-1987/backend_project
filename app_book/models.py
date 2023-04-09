@@ -13,7 +13,7 @@ def validate_ISBN(isbn):
         raise ValidationError('Not Valid ISBN')
 
 
-class Books(models.Model):
+class Book(models.Model):
 
     FIRST = '1ST'
     SECOND = '2ND'
@@ -49,14 +49,21 @@ class Books(models.Model):
     book_id = models.IntegerField(primary_key=True )
     name = models.CharField(max_length=200 , blank=False , null=False )
     ISBN = models.CharField(max_length=10,validators=[validate_ISBN])
-    author_id = models.ManyToManyField("app_authors.Authors", related_name="app_authors" , on_delete = models.DO_NOTHING)
+    author_id = models.ManyToManyField(
+        "app_author.Author",
+        related_name="app_author" ,
+        # on_delete = models.DO_NOTHING,    
+    )
     pages = models.IntegerField(default=100, null=False , blank=True) 
-    languages = models.CharChoices(
+    
+    languages = models.CharField(
         max_length = 2,
         choices = LANG_CHOICES,
         default = SPANISH,
     ) 
+    
     release_date = models.DateField(_("Date"), auto_now_add=True)
+    
     publishing_version = models.CharField(
         max_length = 3 ,
         choices = VERSION_CHOICES,
