@@ -1,3 +1,6 @@
 from django.contrib import admin
+from app_books.models import Books
 
-# Register your models here.
+@admin.register(Books)
+class BooksAdmin(admin.ModelAdmin):
+    list_display = ['__all__']

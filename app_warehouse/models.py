@@ -12,12 +12,12 @@ class Warehouse(PaymentMethod):
 class WarehouseList(models.Model):
     warehouse_id = models.ForeignKey(
         "app_warehouse.WareHouse",
-        related_name = "warehouse",
+        related_name = "app_warehouse",
         on_delete=models.DO_NOTHING
     )
     book_id = models.ForeignKey(
         "app_books.Books",
-        related_name="books",
+        related_name="app_books",
         on_delete=models.CASCADE
     )
     available = models.BooleanField(
