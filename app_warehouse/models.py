@@ -26,7 +26,7 @@ class WarehouseList(models.Model):
         blank=False
     )
     amount = models.IntegerField(
-        default = 10,
         null=False,
+        default = 10,
         blank=False,
     )

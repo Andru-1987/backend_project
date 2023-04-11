@@ -4,6 +4,14 @@ from django.core.exceptions import ValidationError
 from datetime import datetime
 from django.utils.translation import gettext_lazy as _
 
+# a modo de testing y experimentacion
+# voy a usar el FileSystem Built in function de Django
+
+
+from django.core.files.storage.filesystem import FileSystemStorage
+
+FS = FileSystemStorage(location = "/media/pictures")
+
 
 def validate_ISBN(isbn):
     regex = r'978(?:-?\d){10}' 
@@ -47,8 +55,19 @@ class Book(models.Model):
 
 
     book_id = models.IntegerField(primary_key=True )
-    name = models.CharField(max_length=200 , blank=False , null=False )
-    ISBN = models.CharField(max_length=10,validators=[validate_ISBN])
+    name    = models.CharField(max_length=200 , blank=False , null=False )
+    pic     = models.ImageField(
+        storage=FS,
+        default=None,
+        blank=True,
+        null=True
+    )
+    ISBN    = models.CharField( 
+        max_length=13,
+        validators=[validate_ISBN],
+        default="978-3-16-148410-0"
+    
+    )
     author_id = models.ManyToManyField(
         "app_author.Author",
         related_name="app_author" ,
